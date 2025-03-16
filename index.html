@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body {
-            background-color: #121212;
+            background-color: #000000;
             color: white;
             font-family: 'Bitter', serif;
             text-align: center;
@@ -45,14 +45,17 @@
         .gif-container {
             width: 400px;
             height: 400px;
-            background-color: #121212;
+            background-color: #000000;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
         .gif-container img {
-            width: 100%;
+            width: auto;
             height: 100%;
+            max-width: 100%;
+            object-fit: contain;
         }
         .top-right {
             position: absolute;
@@ -91,7 +94,7 @@
             const date = now.toLocaleDateString();
             document.getElementById('datetime-weather').innerHTML = `${date} ${time} | Weather: Loading...`;
             
-            fetch('https://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q=auto:ip')
+            fetch('https://api.weatherapi.com/v1/current.json?key=b41304fc550b40569f5174338251603&q=auto:ip')
                 .then(response => response.json())
                 .then(data => {
                     const weather = data.current.condition.text + ', ' + data.current.temp_c + '°C';
@@ -99,7 +102,7 @@
                 })
                 .catch(error => console.log('Weather fetch error:', error));
         }
-        setInterval(updateDateTimeWeather, 60000);
+        setInterval(updateDateTimeWeather, 1000);
         updateDateTimeWeather();
     </script>
 </body>
