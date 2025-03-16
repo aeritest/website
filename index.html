@@ -63,9 +63,21 @@
             right: 10px;
             font-size: 18px;
         }
+        .settings {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
     </style>
 </head>
 <body>
+    <div class="settings">
+        <label for="unit-toggle">Temperature Unit:</label>
+        <select id="unit-toggle" onchange="updateDateTimeWeather()">
+            <option value="C">Celsius</option>
+            <option value="F">Fahrenheit</option>
+        </select>
+    </div>
     <div class="top-right" id="datetime-weather"></div>
     <figure class="gif-container">
         <img src="https://www.thisiscolossal.com/wp-content/uploads/2024/01/spherewave.gif" alt="Animated GIF">
@@ -92,12 +104,14 @@
             const now = new Date();
             const time = now.toLocaleTimeString();
             const date = now.toLocaleDateString();
+            const unit = document.getElementById('unit-toggle').value;
             document.getElementById('datetime-weather').innerHTML = `${date} ${time} | Weather: Loading...`;
             
             fetch('https://api.weatherapi.com/v1/current.json?key=b41304fc550b40569f5174338251603&q=auto:ip')
                 .then(response => response.json())
                 .then(data => {
-                    const weather = data.current.condition.text + ', ' + data.current.temp_c + '°C';
+                    let temperature = unit === 'C' ? `${data.current.temp_c}°C` : `${data.current.temp_f}°F`;
+                    const weather = data.current.condition.text + ', ' + temperature;
                     document.getElementById('datetime-weather').innerHTML = `${date} ${time} | ${weather}`;
                 })
                 .catch(error => console.log('Weather fetch error:', error));
