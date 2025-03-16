@@ -99,7 +99,7 @@
                 .then(data => {
                     const weatherCondition = data.current.condition.text;
                     const tempCelsius = data.current.temp_c;
-                    const tempFahrenheit = (tempCelsius * 9/5) + 32; // Convert Celsius to Fahrenheit
+                    const tempFahrenheit = (tempCelsius * 9/5) + 32;
                     document.getElementById('datetime-weather').innerHTML = `${date} ${time} | ${weatherCondition}, ${tempFahrenheit.toFixed(1)}°F`;
                 })
                 .catch(error => console.log('Weather fetch error:', error));
